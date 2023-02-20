@@ -1,0 +1,25 @@
+.wrapper {
+    margin-left: 70px;
+    margin-right: 70px;
+    display: flex;
+    flex-direction: column;
+}
+
+.wrapper-img {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    margin-bottom: 70px;
+}
+
+.wrapper-text {
+    text-align: center;
+    margin-right: 200px;
+    margin-left: 200px;
+    margin-bottom: 100px;
+    margin-top: 100px;
+}
+
+.wrapper-text {
+    flex: 2;
+}
