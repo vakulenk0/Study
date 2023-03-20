@@ -1,0 +1,38 @@
+1.
+GET / HTTP/1.0
+Host: u52961.kubsu-dev.ru
+Connection: keep-alive
+
+
+2.
+GET /task_1/ HTTP/1.1
+Host: u52961.kubsu-dev.ru
+
+
+3.
+HEAD /task_2/file.tar.gz HTTP/1.1
+Host: u52961.kubsu-dev.ru
+
+
+4.
+HEAD /task_2/image.png HTTP/1.1
+Host: u52961.kubsu-dev.ru
+
+
+5.
+POST /task_2/index.php HTTP/1.1
+Host: u52961.kubsu-dev.ru
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 13
+
+
+say=Hi&to=Bro
+6.
+GET /task_2/file.tar.gz HTTP/1.1
+Host: u52961.kubsu-dev.ru
+Range: bytes=0-99
+
+
+7.
+HEAD /task_2/index.php HTTP/1.1
+Host: u52961.kubsu-dev.ru
