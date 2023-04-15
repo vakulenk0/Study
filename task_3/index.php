@@ -2,13 +2,12 @@
 // Отправляем браузеру правильную кодировку,
 // файл index.php должен быть в кодировке UTF-8 без BOM.
 header('Content-Type: text/html; charset=UTF-8');
-/*$connect = mysqli_connect('localhost', 'u52961', '4288671', 'u52961');
-
-if(!mysqli_connect_errno()){
-    echo 'Не удалось подключиться: ', mysqli_connect_error();
-}
-else
-    echo 'Подключились к бд';*/
+//$connect = mysqli_connect('localhost', 'u52961', '4288671', 'u52961');
+//if(!mysqli_connect_errno()){
+//    echo 'Не удалось подключиться: ', mysqli_connect_error();
+//}
+//else
+//    echo 'Подключились к бд';*/
 
 // В суперглобальном массиве $_SERVER PHP сохраняет некторые заголовки запроса HTTP
 // и другие сведения о клиненте и сервере, например метод текущего запроса $_SERVER['REQUEST_METHOD'].
