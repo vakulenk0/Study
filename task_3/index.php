@@ -58,7 +58,7 @@ if(empty($_POST['rules'])){
   $errors = TRUE;
 }
 
-if($errors) exit();
+// if($errors) exit();
 
 $user = 'u52961'; // Заменить на ваш логин uXXXXX
 $pass = '4288671'; // Заменить на пароль, такой же, как от SSH
