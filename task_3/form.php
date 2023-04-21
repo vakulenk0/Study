@@ -32,30 +32,30 @@
 
         <label>
           Ваш пол: <br>
-          <input type="radio" name="sex">
+          <input type="radio" name="sex" value="М">
           М
         </label>
 
         <label >
-          <input type="radio" name="sex">
+          <input type="radio" name="sex" value="Ж">
           Ж
         </label><br>
 
         Кол-во конечностей: <br>
         <label>
-          <input type="radio" name="limbs">
+          <input type="radio" name="limbs" value=1>
           1
         </label>
         <label>
-          <input type="radio" name="limbs">
+          <input type="radio" name="limbs" value=2>
           2
         </label>
         <label>
-          <input type="radio" name="limbs">
+          <input type="radio" name="limbs" value=3>
           3
         </label>
         <label>
-          <input type="radio" name="limbs">
+          <input type="radio" name="limbs" value=4>
           4
         </label><br>
 
