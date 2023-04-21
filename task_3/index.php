@@ -23,8 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   exit();
 }
 
-include('form.php');
-
 $errors = FALSE;
 if (empty($_POST['name'])) {
   print('Некорректное имя.');
