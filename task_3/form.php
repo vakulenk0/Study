@@ -62,7 +62,7 @@
         <label>
           Сверхспособности:
           <br >
-          <select name="abilities" multiple="multiple">
+          <select name="abilities[]" multiple="multiple">
             <option>
               Бессмертие
             </option>

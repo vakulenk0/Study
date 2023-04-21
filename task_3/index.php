@@ -23,6 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   exit();
 }
 
+include('form.php');
+
 $errors = FALSE;
 if (empty($_POST['name'])) {
   print('Некорректное имя.');
@@ -49,7 +51,7 @@ if(empty($_POST['limbs'])){
   $errors = TRUE;
 }
 
-if(empty($_POST['abilities'])){
+if(empty($_POST['abilities[]'])){
   print('Отметьте ваши способности.');
   $errors = TRUE;
 }
@@ -73,18 +75,17 @@ $db = new PDO("mysql:host=localhost;dbname=$user", $user, $pass,
 
 // Подготовленный запрос. Не именованные метки.
 try {
-  $stmt = $db->prepare('INSERT INTO application ("name", "email", "data", "sex", "limbs", "biography") VALUES ($_POST["name"],
-    $_POST["email"],$_POST["data"],$_POST["sex"],$_POST["limbs"],$_POST["biography"])');
-  $stmt->execute([$_POST['name']]);
+  $stmt = $db->prepare('INSERT INTO application VALUES ("null", ":name",
+    ":email",":data",":sex",":limbs",":biography"])"');
+  $stmt->execute(['null', 'name' => '$_POST["name"]','email' => '$_POST["email"]', 'data' => '$_POST["data"]',
+ 'sex' => '$_POST["sex"]', 'limbs' => '$_POST["limbs"]', 'biogrpahy' => '$_POST["biography"]']);
 }
 catch(PDOException $e){
   print('Error : ' . $e->getMessage());
   exit();
 }
 
-$name = $_POST['name'];
-
-// Иначе, если запрос был методом POST, т.е. нужно проверить данные и сохранить их в XML-файл.
+// $name = $_POST['name'];
 
 // Иначе, если запрос был методом POST, т.е. нужно проверить данные и сохранить их в XML-файл.
 
