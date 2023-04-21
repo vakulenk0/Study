@@ -17,17 +17,17 @@
       <div class="text-sm-center text-left mx-2" id="form_text">
         <label>
           Имя: <br>
-          <input name="name" value="Введите ваше имя"/>
+          <input name="name" placeholder="Введите ваше имя"/>
         </label> <br>
 
         <label>
           Ваш email: <br>
-          <input name="email" type="email" value="Введите email"/>
+          <input name="email" type="email" placeholder="Введите вашу почту"/>
         </label><br>
 
         <label >
           Дата: <br>
-          <input name="data" type="date" value=""/>
+          <input name="data" type="date"/>
         </label> <br>
 
         <label>
@@ -62,7 +62,7 @@
         <label>
           Сверхспособности:
           <br >
-          <select name="abilities[]" multiple="multiple">
+          <select name="abilities" multiple="multiple">
             <option>
               Бессмертие
             </option>
@@ -78,8 +78,7 @@
 
         <label >
           Биография: <br>
-          <textarea name="biography" >Введите начало своей биографии
-        </textarea>
+          <textarea name="biography"></textarea>
         </label><br>
 
         <label >

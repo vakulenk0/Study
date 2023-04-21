@@ -28,7 +28,9 @@ if(empty($_POST['email'])){
   $errors = TRUE;
 }
 
-if (empty($_POST['year']) || !is_numeric($_POST['year']) || !preg_match('/^\d+$/', $_POST['year'])) {
+// || !is_numeric($_POST['data']) || !preg_match('/^\d+$/', $_POST['data'])
+
+if (empty($_POST['data'])) {
   print('Некорректная дата.');
   $errors = TRUE;
 }
@@ -43,7 +45,7 @@ if(empty($_POST['limbs'])){
   $errors = TRUE;
 }
 
-if(empty($_POST['abilities[]'])){
+if(empty($_POST['abilities'])){
   print('Отметьте ваши способности.');
   $errors = TRUE;
 }
@@ -58,7 +60,7 @@ if(empty($_POST['rules'])){
   $errors = TRUE;
 }
 
-// if($errors) exit();
+if($errors) exit();
 
 $user = 'u52961'; // Заменить на ваш логин uXXXXX
 $pass = '4288671'; // Заменить на пароль, такой же, как от SSH
@@ -67,9 +69,9 @@ $db = new PDO("mysql:host=localhost;dbname=$user", $user, $pass,
 
 // Подготовленный запрос. Не именованные метки.
 try {
-  $stmt = $db->prepare('INSERT INTO application VALUES ("null", ":name",
-    ":email",":data",":sex",":limbs",":biography"])"');
-  $stmt->execute(['null', 'name' => '$_POST["name"]','email' => '$_POST["email"]', 'data' => '$_POST["data"]',
+  $stmt = $db->prepare('INSERT INTO application ("name", "email", "data", "sex", "limbs", "biography") 
+  VALUES (":name", ":email",":data",":sex",":limbs",":biography"])"');
+  $stmt->execute(['name' => '$_POST["name"]','email' => '$_POST["email"]', 'data' => '$_POST["data"]',
  'sex' => '$_POST["sex"]', 'limbs' => '$_POST["limbs"]', 'biogrpahy' => '$_POST["biography"]']);
 }
 catch(PDOException $e){
