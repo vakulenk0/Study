@@ -19,39 +19,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 $errors = FALSE;
 if (empty($_POST['name'])) {
-  print('Некорректное имя.');
+  print('Заполните имя.<br/><br/>');
   $errors = TRUE;
 }
 
 if(empty($_POST['email'])){
-  print('Некорректный email.');
+  print('Некорректный email.<br/><br/>');
+  $errors = TRUE;
+} else if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+  print('Неверный email.<br/><br/>');
   $errors = TRUE;
 }
 
-// || !is_numeric($_POST['data']) || !preg_match('/^\d+$/', $_POST['data'])
-
 if (empty($_POST['data'])) {
-  print('Некорректная дата.');
+  print('Заполните год.<br/><br/>');
   $errors = TRUE;
 }
 
 if(empty($_POST['sex'])){
-  print('Отметьте ваш пол.');
+  print('Отметьте ваш пол.<br/><br/>');
   $errors = TRUE;
 }
 
 if(empty($_POST['limbs'])){
-  print('Отметьте кол-во конечностей.');
+  print('Отметьте кол-во конечностей.<br/><br/>');
   $errors = TRUE;
 }
 
 if(empty($_POST['abilities'])){
-  print('Отметьте ваши способности.');
+  print('Отметьте ваши способности.<br/><br/>');
   $errors = TRUE;
 }
 
 if(empty($_POST['biography'])){
-  print('Введите начало своей биографии.');
+  print('Введите начало своей биографии.<br/><br/>');
   $errors = TRUE;
 }
 
@@ -99,6 +100,12 @@ try {
   $stmt->bindParam(':limbs', $arr['limbs']);
   $stmt->bindParam(':biography', $arr['biography']);
   $stmt->execute();
+
+  $id = $db->lastInsertId();
+  foreach ($_POST['abilities'] as $sup_id) {
+    $stmt = $db->prepare("INSERT INTO application_superpower VALUES (null,:app_id,:sup_id)");
+    $stmt -> execute(['app_id'=>$id, 'sup_id'=>$sup_id]);
+  }
 }
 catch(PDOException $e){
   print('Error : ' . $e->getMessage());
