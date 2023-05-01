@@ -1,0 +1,26 @@
+ create table application (
+    id int(10) unsigned not null auto_increment,
+    name varchar(20) not null,
+    email varchar(30) not null,
+    data varchar(30) not null,
+    sex int(1) not null,
+    limbs int(1) not null,
+    biography varchar(100) not null,
+    primary key(id));
+
+
+create table application_power (
+    id int(10) unsigned not null auto_increment,
+    app_id int(10) unsigned not null,
+    sup_id int(2) unsigned not null,
+    primary key(id));
+
+
+create table power (
+    sup_id int(2) unsigned not null,
+    name varchar(30) not null,
+    primary key(sup_id)); 
+
+
+alter table application_power add foreign key (id) references application (id);
+alter table application_power add foreign key (sup_id) references power (sup_id);

@@ -64,15 +64,41 @@ if($errors) exit();
 
 $user = 'u52961'; // Заменить на ваш логин uXXXXX
 $pass = '4288671'; // Заменить на пароль, такой же, как от SSH
-$db = new PDO("mysql:host=localhost;dbname=$user", $user, $pass,
+$db = new PDO('mysql:host=localhost;dbname=u52961', $user, $pass,
     [PDO::ATTR_PERSISTENT => true, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]); // Заменить test на имя БД, совпадает с логином uXXXXX
 
 // Подготовленный запрос. Не именованные метки.
+
+$ArrNames = Array(
+  "name",
+  "email",
+  "data",
+  "sex",
+  "limbs",
+  "biography"
+);
+
+$arr = Array(
+  'name' => $_POST["name"],
+  'email' => $_POST["email"],
+  'data' => $_POST["data"],
+  'sex' => $_POST["sex"],
+  'libms' => $_POST["libms"],
+  'biography' => $_POST["biography"]
+);
+
 try {
-  $stmt = $db->prepare('INSERT INTO application ("name", "email", "data", "sex", "limbs", "biography") 
-  VALUES (":name", ":email",":data",":sex",":limbs",":biography"])"');
-  $stmt->execute(['name' => '$_POST["name"]','email' => '$_POST["email"]', 'data' => '$_POST["data"]',
- 'sex' => '$_POST["sex"]', 'limbs' => '$_POST["limbs"]', 'biogrpahy' => '$_POST["biography"]']);
+  $stmt = $db->prepare("INSERT INTO application (name, email, data, sex, limbs, biography) 
+  VALUES (:name, :email, :data, :sex, :limbs, :biography)");
+//   $stmt->execute(['name' => '$_POST["name"]','email' => '$_POST["email"]', 'data' => '$_POST["data"]',
+//  'sex' => '$_POST["sex"]', 'limbs' => '$_POST["limbs"]', 'biogrpahy' => '$_POST["biography"]']);
+  $stmt->bindParam(':name', $arr['name']);
+  $stmt->bindParam(':email', $arr['email']);
+  $stmt->bindParam(':data', $arr['data']);
+  $stmt->bindParam(':sex', $arr['sex']);
+  $stmt->bindParam(':limbs', $arr['limbs']);
+  $stmt->bindParam(':biography', $arr['biography']);
+  $stmt->execute();
 }
 catch(PDOException $e){
   print('Error : ' . $e->getMessage());
