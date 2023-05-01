@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   // В суперглобальном массиве $_GET PHP хранит все параметры, переданные в текущем запросе через URL.
   if (!empty($_GET['save'])) {
     // Если есть параметр save, то выводим сообщение пользователю.
-    print('Спасибо, результаты сохранены.');
+    print('<br/><br/> Спасибо, результаты сохранены.');
   }
   // Включаем содержимое файла form.php.
   include('form.php');
@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 }
 
 $errors = FALSE;
+print('<br/><br/>');
 if (empty($_POST['name'])) {
   print('Заполните имя.<br/><br/>');
   $errors = TRUE;
