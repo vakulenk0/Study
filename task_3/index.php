@@ -2,6 +2,7 @@
 // Отправляем браузеру правильную кодировку,
 // файл index.php должен быть в кодировке UTF-8 без BOM.
 header('Content-Type: text/html; charset=UTF-8');
+// print(phpinfo());
 
 // В суперглобальном массиве $_SERVER PHP сохраняет некторые заголовки запроса HTTP
 // и другие сведения о клиненте и сервере, например метод текущего запроса $_SERVER['REQUEST_METHOD'].
@@ -71,14 +72,14 @@ $db = new PDO('mysql:host=localhost;dbname=u52961', $user, $pass,
 
 // Подготовленный запрос. Не именованные метки.
 
-$ArrNames = Array(
-  "name",
-  "email",
-  "data",
-  "sex",
-  "limbs",
-  "biography"
-);
+// $ArrNames = Array(
+//   "name",
+//   "email",
+//   "data",
+//   "sex",
+//   "limbs",
+//   "biography"
+// );
 
 $arr = Array(
   'name' => $_POST["name"],
@@ -102,11 +103,15 @@ try {
   $stmt->bindParam(':biography', $arr['biography']);
   $stmt->execute();
 
-  $id = $db->lastInsertId();
-  foreach ($_POST['abilities'] as $sup_id) {
-    $stmt = $db->prepare("INSERT INTO application_superpower VALUES (null,:app_id,:sup_id)");
-    $stmt -> execute(['app_id'=>$id, 'sup_id'=>$sup_id]);
-  }
+  $id = $stmt->lastInsertId();
+  $stmt = $db->prepare("INSERT INTO application_power (app_id,sup_id) VALUES (:id, :id_abilities");
+  $stmt->bindParam(':id', $id);
+  $stmt->bindParam(':id_abilities', $_POST['abilities[]']);
+  $stmt->execute();
+  // foreach ($_POST['abilities[]'] as $sup_id) {
+  //   $stmt = $db->prepare("INSERT INTO application_superpower VALUES (null,:app_id,:sup_id)");
+  //   $stmt -> execute(['app_id'=>$id, 'sup_id'=>$sup_id]);
+  // }
 }
 catch(PDOException $e){
   print('Error : ' . $e->getMessage());

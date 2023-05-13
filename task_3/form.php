@@ -51,19 +51,19 @@
           <div class="wrap">
             <strong><h3>Кол-во конечностей:</h3></strong>
             <label>
-              <input class="input-radio"  type="radio" name="limbs" value="1">
+              <input class="input-radio"  type="radio" name="limbs" value=1>
               <span class="symbol">1</span>
             </label>
             <label>
-              <input class="input-radio"  type="radio" name="limbs" value="2">
+              <input class="input-radio"  type="radio" name="limbs" value=2>
               <span class="symbol">2</span>
             </label>
             <label>
-              <input class="input-radio"  type="radio" name="limbs" value="3">
+              <input class="input-radio"  type="radio" name="limbs" value=3>
               <span class="symbol">3</span>
             </label>
             <label>
-              <input class="input-radio"  type="radio" name="limbs" value="4">
+              <input class="input-radio"  type="radio" name="limbs" value=4>
               <span class="symbol">4</span>
             </label><br>
           </div>
@@ -71,14 +71,14 @@
           <div class="wrap">
             <label>
               <strong><h3>Сверхспособности:</h3></strong>
-              <select  name="abilities" multiple="multiple">
-                <option>
+              <select  name="abilities[]" multiple="multiple">
+                <option value=1>
                   Бессмертие
                 </option>
-                <option >
-                  Прохождение сквозь стены
+                <option value=2>
+                  Прохождения сквозь стены
                 </option>
-                <option >
+                <option value=3>
                   Левитация
                 </option>
 
