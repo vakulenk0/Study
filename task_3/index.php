@@ -102,8 +102,8 @@ try {
   $stmt->execute();
 
   $stmt = $db->query("SELECT LAST_INSERT_ID()");
-  $stmt->execute();
   $id = $stmt->fetchColumn();
+  
 
   $stmt = $db->prepare("INSERT INTO application_power VALUES (null, :id, :id_abilities)");
   $stmt->bindParam(':id', $id);
