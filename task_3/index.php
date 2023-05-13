@@ -106,9 +106,9 @@ try {
   $id = $stmt->fetchColumn();
   
 
-  $stmt = $db->prepare("INSERT INTO application_power VALUES (null, :id, :id_abilities)");
-  $stmt->bindParam(':id', $id);
-  $stmt->bindParam(':id_abilities', $_POST['abilities[]']);
+  $stmt = $db->prepare("INSERT INTO application_power (:app_id, :sup_id) VALUES (:app_id, :sup_id)");
+  $stmt->bindParam(':app_id', $id);
+  $stmt->bindParam(':sup_id', $_POST['abilities[]']);
   $stmt->execute();
   // foreach ($_POST['abilities[]'] as $sup_id) {
   //   $stmt = $db->prepare("INSERT INTO application_superpower VALUES (null,:app_id,:sup_id)");
