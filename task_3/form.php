@@ -1,13 +1,8 @@
-<!DOCTYPE html>
 <html lang="en">
-
-<head>
     <meta charset="UTF-8">
     <title>Задание 3</title>
     <link rel="stylesheet" href="style3.css">
-</head>
 
-<body>
     <div class="container">
       <div class="large-wrap">
         <form id="form" action="" method="POST">
@@ -105,6 +100,3 @@
           </form>
       </div>
     </div>
-
-</body>
-</html>
