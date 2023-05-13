@@ -101,7 +101,7 @@ try {
   $stmt->bindParam(':biography', $arr['biography']);
   $stmt->execute();
 
-  $id = $stmt->lastInsertId();
+  $id = $db->lastInsertId();
   $stmt = $db->prepare("INSERT INTO application_power (app_id,sup_id) VALUES (:id, :id_abilities");
   $stmt->bindParam(':id', $id);
   $stmt->bindParam(':id_abilities', $_POST['abilities[]']);
