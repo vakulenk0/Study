@@ -84,7 +84,7 @@ $arr = Array(
   'email' => $_POST["email"],
   'data' => $_POST["data"],
   'sex' => $_POST["sex"],
-  'libms' => $_POST["libms"],
+  'limbs' => $_POST["limbs"],
   'biography' => $_POST["biography"]
 );
 
