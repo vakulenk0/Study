@@ -106,7 +106,7 @@ try {
   $id = $stmt->fetchColumn();
   
 
-  $stmt = $db->prepare("INSERT INTO application_power (app_id, sup_id) VALUES (:app_id, :sup_id)");
+  $stmt = $db->prepare("INSERT INTO application_power (id, app_id, sup_id) VALUES (null, :app_id, :sup_id)");
   $stmt->bindParam(':app_id', $id);
   $stmt->bindParam(':sup_id', $_POST['abilities[]']);
   $stmt->execute();
