@@ -102,14 +102,10 @@ try {
   $stmt->execute();
 
   $id = $stmt->lastInsertId();
-  echo "stmt: ";
-  echo $stmt->lastInsertId();
-  echo "db: ";
-  echo $db->lastInsertId();
-  $st = $db->prepare("INSERT INTO application_power VALUES (null, :id, :id_abilities)");
-  $st->bindParam(':id', $id);
-  $st->bindParam(':id_abilities', $_POST['abilities[]']);
-  $st->execute();
+  $stmt = $db->prepare("INSERT INTO application_power VALUES (null, :id, :id_abilities)");
+  $stmt->bindParam(':id', $id);
+  $stmt->bindParam(':id_abilities', $_POST['abilities[]']);
+  $stmt->execute();
   // foreach ($_POST['abilities[]'] as $sup_id) {
   //   $stmt = $db->prepare("INSERT INTO application_superpower VALUES (null,:app_id,:sup_id)");
   //   $stmt -> execute(['app_id'=>$id, 'sup_id'=>$sup_id]);
