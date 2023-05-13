@@ -9,9 +9,6 @@
 
 <body>
     <div class="container">
-      <!-- <?php
-      echo '<div> <strong>HELLOO</strong> </div>';
-      ?> -->
       <div class="large-wrap">
         <form id="form" action="" method="POST">
         <div>
