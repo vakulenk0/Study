@@ -101,7 +101,7 @@ try {
   $stmt->bindParam(':biography', $arr['biography']);
   $stmt->execute();
 
-  $stmt = $db->query("SELECT LAST_INSERT_ID()");
+  $stmt = $db->query("SELECT MAX(id) from application");
   $id = $stmt->fetchColumn();
   
 
