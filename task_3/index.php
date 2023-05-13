@@ -101,7 +101,7 @@ try {
   $stmt->bindParam(':biography', $arr['biography']);
   $stmt->execute();
 
-  $stmt = $db->query("SELECT MAX(id) from application");
+  $stmt = $db->prepare("SELECT MAX(id) from application");
   $stmt->execute();
   $id = $stmt->fetchColumn();
   
