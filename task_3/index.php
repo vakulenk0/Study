@@ -106,12 +106,9 @@ try {
   // $id = $stmt->fetchColumn();
   $id = $db->lastInsertId();
 
-  // $stmt = $db->prepare("INSERT INTO application_power (id, app_id, sup_id) VALUES (null, :app_id, :sup_id)");
-  // $stmt->bindParam(':app_id', $id);
-  foreach ($_POST['abilities[]'] as $sup_id) {
-    $stmt = $db->prepare("INSERT INTO application_power VALUES (null,:app_id,:sup_id)");
-    $stmt -> execute(['app_id'=>$id, 'sup_id'=>$sup_id]);
-  }
+  $stmt = $db->prepare("INSERT INTO application_power (id, app_id, sup_id) VALUES (null, :app_id, :sup_id)");
+  $stmt->bindParam(':app_id', $id);
+  $stmt->bindParam(':sup_id', ($_POST['abilities'])[0])
 }
 catch(PDOException $e){
   print('Error : ' . $e->getMessage());
