@@ -102,6 +102,7 @@ try {
   $stmt->execute();
 
   $stmt = $db->query("SELECT MAX(id) from application");
+  $stmt->execute();
   $id = $stmt->fetchColumn();
   
 
