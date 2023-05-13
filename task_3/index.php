@@ -101,19 +101,17 @@ try {
   $stmt->bindParam(':biography', $arr['biography']);
   $stmt->execute();
 
-  $stmt = $db->prepare("SELECT MAX(id) from application");
-  $stmt->execute();
-  $id = $stmt->fetchColumn();
-  
+  // $stmt = $db->prepare("SELECT MAX(id) from application");
+  // $stmt->execute();
+  // $id = $stmt->fetchColumn();
+  $id = $db->lastInsertId();
 
-  $stmt = $db->prepare("INSERT INTO application_power (id, app_id, sup_id) VALUES (null, :app_id, :sup_id)");
-  $stmt->bindParam(':app_id', $id);
-  $stmt->bindParam(':sup_id', $_POST['abilities[]']);
-  $stmt->execute();
-  // foreach ($_POST['abilities[]'] as $sup_id) {
-  //   $stmt = $db->prepare("INSERT INTO application_superpower VALUES (null,:app_id,:sup_id)");
-  //   $stmt -> execute(['app_id'=>$id, 'sup_id'=>$sup_id]);
-  // }
+  // $stmt = $db->prepare("INSERT INTO application_power (id, app_id, sup_id) VALUES (null, :app_id, :sup_id)");
+  // $stmt->bindParam(':app_id', $id);
+  foreach ($_POST['abilities[]'] as $sup_id) {
+    $stmt = $db->prepare("INSERT INTO application_power VALUES (null,:app_id,:sup_id)");
+    $stmt -> execute(['app_id'=>$id, 'sup_id'=>$sup_id]);
+  }
 }
 catch(PDOException $e){
   print('Error : ' . $e->getMessage());
