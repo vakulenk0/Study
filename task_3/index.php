@@ -99,13 +99,13 @@ try {
   $stmt->bindParam(':sex', $arr['sex']);
   $stmt->bindParam(':limbs', $arr['limbs']);
   $stmt->bindParam(':biography', $arr['biography']);
-  $stmt->execute();
 
   $id = $db->lastInsertId();
-  $stmt = $db->prepare("INSERT INTO application_power (app_id,sup_id) VALUES (:id, :id_abilities");
-  $stmt->bindParam(':id', $id);
-  $stmt->bindParam(':id_abilities', $_POST['abilities[]']);
+  $st = $db->prepare("INSERT INTO application_power (app_id,sup_id) VALUES (:id, :id_abilities");
+  $st->bindParam(':id', $id);
+  $st->bindParam(':id_abilities', $_POST['abilities[]']);
   $stmt->execute();
+  $st->execute();
   // foreach ($_POST['abilities[]'] as $sup_id) {
   //   $stmt = $db->prepare("INSERT INTO application_superpower VALUES (null,:app_id,:sup_id)");
   //   $stmt -> execute(['app_id'=>$id, 'sup_id'=>$sup_id]);
