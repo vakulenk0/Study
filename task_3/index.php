@@ -100,7 +100,8 @@ try {
   $stmt->bindParam(':limbs', $arr['limbs']);
   $stmt->bindParam(':biography', $arr['biography']);
   $stmt->execute();
-  $id = $db->PDO::lastInsertId();
+  $stmt = $db->query("SELECT LAST_INSERT_ID()");
+  $id = $stmt->fetchColumn();
   $stmt = $db->prepare("INSERT INTO application_power VALUES (null, :id, :id_abilities)");
   $stmt->bindParam(':id', $id);
   $stmt->bindParam(':id_abilities', $_POST['abilities[]']);
