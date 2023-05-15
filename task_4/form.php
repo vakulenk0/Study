@@ -30,7 +30,7 @@ if (!empty($messages)) {
               <strong><h3>Имя:</h3></strong>
               <input class="input-normal" name="name" placeholder="Введите ваше имя" 
 
-              <?php if ($errors['name']) {print 'class="error"';} ?> value="<?php if(!$errors['name']) print($_COOKIE['name']) ?>"/>
+              <?php if ($errors['name']) {print 'class="error")';} ?> value="<?php print $values['name']  ?>"/>
 
             </label> <br>
           </div>
@@ -40,7 +40,7 @@ if (!empty($messages)) {
               <strong><h3>Ваш email:</h3></strong>
               <input class="input-normal" name="email" type="email" placeholder="Введите вашу почту"
               
-              <?php if ($errors['email']) {print 'class="error"';} ?> value="<?php if(!$errors['email']) print($_COOKIE['email']) ?>"/>
+              <?php if ($errors['email']) {print 'class="error"';} ?> value="<?php if(!empty($_GET['email'])) print($_COOKIE['email']) ?>"/>
             </label><br>
           </div>
 

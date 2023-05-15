@@ -101,10 +101,10 @@ try {
   $stmt->bindParam(':biography', $arr['biography']);
   $stmt->execute();
 
-  // $stmt = $db->prepare("SELECT MAX(id) from application");
-  // $stmt->execute();
-  // $id = $stmt->fetchColumn();
-  $id = $db->lastInsertId();
+  $stmt = $db->prepare("SELECT MAX(id) from application");
+  $stmt->execute();
+  $id = $stmt->fetchColumn();
+  // $id = $db->lastInsertId();
 
   $stmt = $db->prepare("INSERT INTO application_power (id, app_id, sup_id) VALUES (null, :app_id, :sup_id)");
   $stmt->bindParam(':app_id', $id);
@@ -115,6 +115,7 @@ catch(PDOException $e){
   print('Error : ' . $e->getMessage());
   exit();
 }
+header('Location: ?save=1');
 
 // $name = $_POST['name'];
 
@@ -140,5 +141,4 @@ $stmt->execute();
 // Делаем перенаправление.
 // Если запись не сохраняется, но ошибок не видно, то можно закомментировать эту строку чтобы увидеть ошибку.
 // Если ошибок при этом не видно, то необходимо настроить параметр display_errors для PHP.
-header('Location: ?save=1');
 ?>

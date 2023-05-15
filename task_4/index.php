@@ -2,94 +2,77 @@
 // Отправляем браузеру правильную кодировку,
 // файл index.php должен быть в кодировке UTF-8 без BOM.
 header('Content-Type: text/html; charset=UTF-8');
-
-
+$values = array();
+$errors = array();
+$messages = array();
 // В суперглобальном массиве $_SERVER PHP сохраняет некторые заголовки запроса HTTP
 // и другие сведения о клиненте и сервере, например метод текущего запроса $_SERVER['REQUEST_METHOD'].
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-  // В суперглобальном массиве $_GET PHP хранит все параметры, переданные в текущем запросе через URL.
-  
-  // Массив для временного хранения сообщений пользователю.
-  $messages = array();
-
-  setcookie('name', $_GET['name']);
-setcookie('email', $_GET['email']);
-setcookie('data', $_GET['data']);
-setcookie('sex', $_GET['sex']);
-setcookie('limbs', $_GET['limbs']);
-setcookie('abilities', $_GET['abilities']);
-setcookie('biography', $_GET['biography']);
-setcookie('rules', $_GET['rules']);
-
-
-  // В суперглобальном массиве $_COOKIE PHP хранит все имена и значения куки текущего запроса.
-  // Выдаем сообщение об успешном сохранении.
-  if (!empty($_COOKIE['save'])) {
-    // Удаляем куку, указывая время устаревания в прошлом.
-    setcookie('save', '', 100000);
-    // Если есть параметр save, то выводим сообщение пользователю.
-    $messages[] = 'Спасибо, результаты сохранены.';
+  $saved = FALSE;
+  if (isset($_COOKIE['saved'])) {
+    $saved = TRUE;
+    setcookie('saved','1',1);
   }
 
-   // Складываем признак ошибок в массив.
-   $errors = array();
+  $errors['name'] = '';
+  $errors['email'] = '';
+  $errors['data'] = '';
+  $errors['sex'] = '';
+  $errors['limbs'] = '';
+  $errors['abilities'] = '';
+  $errors['biography'] = '';
+  $errors['rules'] = '';
 
-   if (empty($_GET['name']) || !preg_match('/\w{2,}/', $_GET['name']) || preg_match('/[0-9]/', $_GET['name'])
-|| preg_match('/\W/', $_GET['name'])) {
-  $messages[] = 'Имя заполнено неверно.(Можно использовать только буквы и имя должно быть записано без пробелов.<br/><br/>';
-  $errors['name'] = TRUE;
-}else setcookie('name', $_GET['name']);
 
-if(empty($_GET['email']) || !preg_match('/\w+\@+\w+\.+\w/', $_GET['email'])){
-  $messages[] = 'Некорректный email.<br/><br/>';
-  $errors['email'] = TRUE;
-}else setcookie('email', $_GET['email']);
+  if (!empty($_COOKIE['name'])){
+    $errors['name'] = $_COOKIE['name'];
+    setcookie('name','',1);
+  }
+  if (!empty(($_COOKIE['email']))){
+    $errors['email'] = $_COOKIE['email'];
+    setcookie('email','',1);
+  }
+  if (!empty(($_COOKIE['data']))){
+    $errors['data'] = $_COOKIE['data'];
+    setcookie('data','',1); 
+  }
+  if (!empty(($_COOKIE['sex']))){
+    $errors['sex'] = $_COOKIE['sex'];
+    setcookie('sex','',1); 
+  }
+  if (!empty(($_COOKIE['limbs']))){
+    $errors['limbs'] = $_COOKIE['limbs'];
+    setcookie('limbs','',1); 
+  }
+  if (!empty(($_COOKIE['abilities']))){
+    $errors['abilities'] = $_COOKIE['abilities'];
+    setcookie('abilities','',1); 
+  }
+  if (!empty(($_COOKIE['biography']))){
+    $errors['biography'] = $_COOKIE['biography'];
+    setcookie('biography','',1); 
+  }
+  if (!empty(($_COOKIE['rules']))){
+    $errors['rules'] = $_COOKIE['rules'];
+    setcookie('rules','',1); 
+  }
 
-if (empty($_GET['data'])) {
-  $messages[] = 'Заполните год.<br/><br/>';
-  $errors['data'] = TRUE;
-} else setcookie('data', $_GET['data']);
+  $values['name']  = empty($_COOKIE['name']) ? "" : $_COOKIE['name'];
+  $values['email']  = empty($_COOKIE['email'])? "" : $_COOKIE['email']; 
+  $values['data']  = empty($_COOKIE['data']) ? "" : $_COOKIE['data'];
+  $values['sex']  = empty($_COOKIE['sex']) ? "": $_COOKIE['sex'];
+  $values['limbs']  = empty($_COOKIE['limbs']) ? "" : $_COOKIE['limbs'];
+  $values['abilities']  = empty($_COOKIE['abilities']) ? "" : $_COOKIE['abilities'];
+  $values['biography']  = empty($_COOKIE['biography']) ? "" : $_COOKIE['biography'];
+  $values['rules']  = empty($_COOKIE['rules']) ? 0 : $_COOKIE['rules'];
 
-if(empty($_GET['sex'])){
-  $messages[] = 'Отметьте ваш пол.<br/><br/>';
-  $errors['sex'] = TRUE;
-} else setcookie('sex', $_GET['sex']);
-
-if(empty($_GET['limbs'])){
-  $messages[] = 'Отметьте кол-во конечностей.<br/><br/>';
-  $errors['limbs'] = TRUE;
-} else setcookie('limbs', $_GET['limbs']);
-
-if(empty($_GET['abilities'])){
-  $messages[] = 'Отметьте ваши способности.<br/><br/>';
-  $errors['abilities'] = TRUE;
-} else setcookie('abilities', $_GET['abilities']);
-
-if(empty($_GET['biography']) || !preg_match('/\w{10,}/', $_GET['biography'])){
-  $messages[] = 'Либо ваша биография пуста, либо в ней использован запрещённый символ(разрешены только буквы и цифры).<br/><br/>';
-  $errors['biography'] = TRUE;
-} else setcookie('biography', $_GET['biography']);
-
-if(empty($_GET['rules'])){
-  $messages[] = 'Вы не согласились с контрактом.';
-  $errors['rules'] = TRUE;
-} else setcookie('rules', $_GET['rules']);
-
-  // Включаем содержимое файла form.php.
   include('form.php');
-
-  if($errors){
-    // При наличии ошибок перезагружаем страницу и завершаем работу скрипта.
-    header('Location: index.php');
-    exit();
-    } 
-} 
-else if($_SERVER['REQUEST_METHOD'] == 'POST'){
+  exit();
+}
 // В суперглобальном массиве $_GET PHP хранит все параметры, переданные в текущем запросе через URL.
   // Массив для временного хранения сообщений пользователю.
-  $messages = array();
 
-setcookie('name', $_POST['name']);
+  setcookie('name', $_POST['name']);
 setcookie('email', $_POST['email']);
 setcookie('data', $_POST['data']);
 setcookie('sex', $_POST['sex']);
@@ -97,8 +80,6 @@ setcookie('limbs', $_POST['limbs']);
 setcookie('abilities', $_POST['abilities']);
 setcookie('biography', $_POST['biography']);
 setcookie('rules', $_POST['rules']);
-
-
 // В суперглобальном массиве $_COOKIE PHP хранит все имена и значения куки текущего запроса.
 // Выдаем сообщение об успешном сохранении.
 if (!empty($_COOKIE['save'])) {
@@ -116,43 +97,75 @@ if (!empty($_COOKIE['save'])) {
 $messages[] = '<div class="error">Имя заполнено неверно.(Можно использовать только буквы
  и имя должно быть записано без пробелов.<br/><br/></div>';
 $errors['name'] = TRUE;
-} else setcookie('name', $_POST['name']);
+setcookie('name', '');
+} else {
+  setcookie('name', $_POST['name']);
+  $errors['name'] = false;
+}
 
 if(empty($_POST['email']) || !preg_match('/\w+\@+\w+\.+\w/', $_POST['email'])){
 $messages[] = '<div class="error">Некорректный email.<br/><br/></div>';
 $errors['email'] = TRUE;
-} else setcookie('email', $_POST['email']);
+setcookie('email', '');
+} else {
+  setcookie('email', $_POST['email']);
+  $errors['email'] = false;
+}
 
 if (empty($_POST['data'])) {
 $messages[] = '<div class="error">Заполните год.<br/><br/></div>';
 $errors['data'] = TRUE;
-} else setcookie('data', $_POST['data']);
+setcookie('data', '');
+} else {
+  setcookie('data', $_POST['data']);
+  $errors['data'] = false;
+}
 
 if(empty($_POST['sex'])){
 $messages[] = '<div class="error">Отметьте ваш пол.<br/><br/></div>';
 $errors['sex'] = TRUE;
-} else setcookie('sex', $_POST['sex']);
+setcookie('sex', '');
+} else {
+  setcookie('sex', $_POST['sex']);
+  $errors['sex'] = false;
+}
 
 if(empty($_POST['limbs'])){
 $messages[] = '<div class="error">Отметьте кол-во конечностей.<br/><br/></div>';
 $errors['limbs'] = TRUE;
-} else setcookie('limbs', $_POST['limbs']);
+setcookie('limbs', '');
+} else {
+  setcookie('limbs', $_POST['limbs']);
+  $errors['limbs'] = false;
+}
 
 if(empty($_POST['abilities'])){
 $messages[] = '<div class="error">Отметьте ваши способности.<br/><br/></div>';
 $errors['abilities'] = TRUE;
-} else setcookie('abilities', $_POST['abilities']);
+setcookie('abilities', '');
+} else {
+  setcookie('abilities', $_POST['abilities']);
+  $errors['abilities'] = false;
+}
 
 if(empty($_POST['biography']) || !preg_match('/\w{10,}/', $_POST['biography'])){
 $messages[] = '<div class="error">Либо ваша биография пуста, либо в ней 
 использован запрещённый символ(разрешены только буквы и цифры).<br/><br/></div>';
 $errors['biography'] = TRUE;
-} else setcookie('biography', $_POST['biography']);
+setcookie('biography', '');
+} else {
+  setcookie('biography', $_POST['biography']);
+  $errors['biography'] = false;
+}
 
 if(empty($_POST['rules'])){
 $messages[] = '<div class="error">Вы не согласились с контрактом.</div>';
 $errors['rules'] = TRUE;
-} else setcookie('rules', $_POST['rules']);
+setcookie('rules', '');
+} else {
+  setcookie('rules', $_POST['rules']);
+  $errors['rules'] = false;
+}
 
 // Включаем содержимое файла form.php.
 include('form.php');
@@ -161,8 +174,10 @@ if($errors){
   // При наличии ошибок перезагружаем страницу и завершаем работу скрипта.
   header('Location: index.php');
   exit();
-  } 
-}
+  } else {
+    setcookie('save', '1', 1);
+    header('Location: index.php');
+  }
 
 $user = 'u52961'; // Заменить на ваш логин uXXXXX
 $pass = '4288671'; // Заменить на пароль, такой же, как от SSH
