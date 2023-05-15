@@ -3,33 +3,56 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Задание 3</title>
-    <link rel="stylesheet" href="style3.css">
+    <title>Задание 4</title>
+    <link rel="stylesheet" href="style4.css">
 </head>
 
 <body>
     <div class="container">
       <div class="large-wrap">
-        <form id="form" action="" method="POST">
+      <?php
+if (!empty($messages)) {
+  print('<div id="messages">');
+  // Выводим все сообщения.
+  foreach ($messages as $message) {
+    print($message);
+  }
+  print('</div>');
+}
+
+// Далее выводим форму отмечая элементы с ошибками классом error
+// и задавая начальные значения элементов ранее сохраненными.
+?>
+        <form id="form" action="" method="POST" >
         <div>
           <div class="wrap">
             <label>
               <strong><h3>Имя:</h3></strong>
-              <input class="input-normal" name="name" placeholder="Введите ваше имя"/>
+              <input class="input-normal" name="name" placeholder="Введите ваше имя" 
+
+              <?php if ($errors['name']) {print 'class="error"';} ?> value="<?php if(!$errors['name']) print($_COOKIE['name']) ?>"/>
+
             </label> <br>
           </div>
 
           <div class="wrap">
             <label>
               <strong><h3>Ваш email:</h3></strong>
-              <input class="input-normal" name="email" type="email" placeholder="Введите вашу почту"/>
+              <input class="input-normal" name="email" type="email" placeholder="Введите вашу почту"
+              
+              <?php if ($errors['email']) {print 'class="error"';} ?> value="<?php if(!$errors['email']) print($_COOKIE['email']) ?>"/>
             </label><br>
           </div>
 
           <div class="wrap">
             <label >
               <strong><h3>Дата рождения: </h3></strong>
-              <input class="input-normal" name="data" type="date"/>
+              <input class="input-normal" name="data" type="date"
+               
+              <?php if ($errors['data']) {print 'class="error"';} ?> 
+              value="<?php if(!$errors['data']) print($_COOKIE['data']) ?>"
+              
+              />
             </label> <br>
           </div>
 
