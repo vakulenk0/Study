@@ -68,7 +68,7 @@
           <div class="wrap">
             <label>
               <strong><h3>Сверхспособности:</h3></strong>
-              <select  name="abilities" multiple="multiple">
+              <select  name="abilities[]" multiple="multiple">
                 <option value=1>
                   Бессмертие
                 </option>

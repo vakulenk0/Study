@@ -101,10 +101,10 @@ try {
   $stmt->bindParam(':biography', $arr['biography']);
   $stmt->execute();
 
-  $stmt = $db->prepare("SELECT MAX(id) from application");
-  $stmt->execute();
-  $id = $stmt->fetchColumn();
-  // $id = $db->lastInsertId();
+  // $stmt = $db->prepare("SELECT MAX(id) from application");
+  // $stmt->execute();
+  // $id = $stmt->fetchColumn();
+  $id = $db->lastInsertId();
 
   $stmt = $db->prepare("INSERT INTO application_power (id, app_id, sup_id) VALUES (null, :app_id, :sup_id)");
   $stmt->bindParam(':app_id', $id);
