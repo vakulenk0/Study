@@ -14,7 +14,7 @@
 if (!empty($messages)) {
   print('<div id="messages">');
   // Выводим все сообщения.
-  foreach ($messages as $message) {
+  foreach ($errors as $message) {
     print($message);
   }
   print('</div>');
@@ -28,9 +28,9 @@ if (!empty($messages)) {
           <div class="wrap">
             <label>
               <strong><h3>Имя:</h3></strong>
-              <input class="input-normal" name="name" placeholder="Введите ваше имя" 
-
-              <?php if ($errors['name']) {print 'class="error")';} ?> value="<?php print $values['name']  ?>"/>
+              <input class="input-normal <?php if (!empty($errors['name'])) print('error'); ?>" 
+              name="name" placeholder="Введите ваше имя"  
+              value="<?php print $values['name']; ?>">
 
             </label> <br>
           </div>
@@ -38,19 +38,19 @@ if (!empty($messages)) {
           <div class="wrap">
             <label>
               <strong><h3>Ваш email:</h3></strong>
-              <input class="input-normal" name="email" type="email" placeholder="Введите вашу почту"
+              <input class="input-normal <?php if (!empty($errors['email'])) print('error'); ?>" name="email" type="email" placeholder="Введите вашу почту"
               
-              <?php if ($errors['email']) {print 'class="error"';} ?> value="<?php if(!empty($_GET['email'])) print($_COOKIE['email']) ?>"/>
+              value="<?php print($values['email']); ?>"/>
             </label><br>
           </div>
 
           <div class="wrap">
             <label >
               <strong><h3>Дата рождения: </h3></strong>
-              <input class="input-normal" name="data" type="date"
+              <input class="input-normal <?php if (!empty($errors['data'])) print('error');  ?>" name="data" type="date"
                
-              <?php if ($errors['data']) {print 'class="error"';} ?> 
-              value="<?php if(!$errors['data']) print($_COOKIE['data']) ?>"
+              
+              value="<?php print($values['data']); ?>"
               
               />
             </label> <br>
