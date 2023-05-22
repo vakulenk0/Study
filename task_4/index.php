@@ -3,75 +3,61 @@
 // файл index.php должен быть в кодировке UTF-8 без BOM.
 header('Content-Type: text/html; charset=UTF-8');
 
-// В суперглобальном массиве $_SERVER PHP сохраняет некторые заголовки запроса HTTP
-// и другие сведения о клиненте и сервере, например метод текущего запроса $_SERVER['REQUEST_METHOD'].
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   $saved = FALSE;
   if (isset($_COOKIE['saved'])) {
     $saved = TRUE;
-    setcookie('saved',NULL,1);
+    setcookie('saved','');
+    print('<div>Данные успешно отправлены!</div>');
   }
   $errors = array();
   if (isset($_COOKIE['error_name'])){
-    $errors['name'] = $_COOKIE['name'];
-    setcookie('name',NULL,1);
+    $errors['name'] = $_COOKIE['error_name'];
+    setcookie('error_name','');
   }
-  if (isset($_COOKIE['email'])){
-    $errors['email'] = $_COOKIE['email'];
-    setcookie('email',NULL,1);
+  if (isset($_COOKIE['error_email'])){
+    $errors['email'] = $_COOKIE['error_email'];
+    setcookie('error_email','');
   }
-  if (isset($_COOKIE['data'])){
-    $errors['data'] = $_COOKIE['data'];
-    setcookie('data',NULL,1); 
+  if (isset($_COOKIE['error_data'])){
+    $errors['data'] = $_COOKIE['error_data'];
+    setcookie('error_data',''); 
   }
-  if (isset($_COOKIE['sex'])){
-    $errors['sex'] = $_COOKIE['sex'];
-    setcookie('sex',NULL,1);
+  if (isset($_COOKIE['error_rules'])){
+    $errors['rules'] = $_COOKIE['error_rules'];
+    setcookie('error_rules','');
+
   }
-  if (isset($_COOKIE['limbs'])){
-    $errors['limbs'] = $_COOKIE['limbs'];
-    setcookie('limbs',NULL,1);
-  }
-  if (isset($_COOKIE['abilities'])){
-    $errors['abilities'] = $_COOKIE['abilities'];
-    setcookie('abilities',NULL,1);
-  }
-  if (isset($_COOKIE['biography'])){
-    $errors['biography'] = $_COOKIE['biography'];
-    setcookie('biography',NULL,1);
-  }
-  if (isset($_COOKIE['rules'])){
-    $errors['rules'] = $_COOKIE['narulesme'];
-    setcookie('rules',NULL,1);
+  if (isset($_COOKIE['error_abilities'])){
+    $errors['abilities'] = $_COOKIE['error_abilities'];
+    setcookie('error_abilities','');
   }
   $values = array();
-  $values['name']  = empty($_COOKIE['name']) ? "" : $_COOKIE['name'];
-  $values['email']  = empty($_COOKIE['email'])? "" : $_COOKIE['email']; 
   $values['data']  = empty($_COOKIE['data']) ? "" : $_COOKIE['data'];
-  $values['sex']  = isset($_COOKIE['sex'])?$_COOKIE['sex']:1 ;
+  $values['name']  = empty($_COOKIE['name'])? "" : $_COOKIE['name']; 
+  $values['email']  = empty($_COOKIE['email']) ? "" : $_COOKIE['email'];
+  $values['sex']  = isset($_COOKIE['sex'])?$_COOKIE['sex']: "М" ;
   $values['limbs']  = isset($_COOKIE['limbs'])?$_COOKIE['limbs']:4 ;
-  $values['abilities']  = empty($_COOKIE['abilities']) ? "" : $_COOKIE['abilities'];
   $values['biography']  = empty($_COOKIE['biography']) ? "" : $_COOKIE['biography'];
+  $values['abilities']  = empty($_COOKIE['abilities']) ? "" : $_COOKIE['abilities'];
   $values['rules']  = empty($_COOKIE['rules']) ? 0 : $_COOKIE['rules'];
-  
 
   include('form.php');
   exit();
 }
 
-setcookie('name',$_POST['name']);
-setcookie('email',$_POST['email']); 
-setcookie('data',$_POST['data']);
-setcookie('sex',$_POST['sex']);
-setcookie('limbs',$_POST['limbs']);
-setcookie('abilities',$_POST['abilities']);
-setcookie('biography',$_POST['biography']);
-setcookie('rules',$_POST['rules']);
-
 $errors = array();
 
- if (empty($_POST['name']) || !preg_match('/\w{2,}/', $_POST['name']) || preg_match('/[0-9]/', $_POST['name'])
-|| preg_match('/\W/', $_POST['name'])) 
+setcookie('data',$_POST['data']);
+setcookie('name',$_POST['name']); 
+setcookie('email',$_POST['email']);
+isset($_COOKIE['sex']) ? setcookie('sex',$_POST['sex']) : 'М';
+setcookie('biography',$_POST['biography']);
+if(empty($_POST['rules']))
+  setcookie('rules','');
+else setcookie('rules', $_POST['rules']);
+
+if (empty($_POST['name'])) 
 $errors['name'] = '<div class="error">Имя заполнено неверно.(Можно использовать только буквы
  и имя должно быть записано без пробелов.<br/><br/></div>';
 
@@ -90,10 +76,6 @@ if(empty($_POST['sex'])){
 $errors['sex'] = '<div class="error">Отметьте ваш пол.<br/><br/></div>';
 }
 
-if(empty($_POST['limbs'])){
-$errors['limbs'] = '<div class="error">Отметьте кол-во конечностей.<br/><br/></div>';
-}
-
 if(empty($_POST['abilities'])){
 $errors['abilities'] = '<div class="error">Отметьте ваши способности.<br/><br/></div>';
 
@@ -107,16 +89,17 @@ $errors['biography'] = '<div class="error">Либо ваша биография 
 if(empty($_POST['rules'])){
 $errors['rules'] = '<div class="error">Вы не согласились с контрактом.</div>';
 }
-// Включаем содержимое файла form.php.
-include('form.php');
+
 
 if ($errors) {
   foreach ($errors as $key => $value) {
-    setcookie($key, $value);
+    setcookie('error_'.$key, $value);
   }
   header('Location: index.php');
   exit();
 }
+
+
 
 $user = 'u52961'; // Заменить на ваш логин uXXXXX
 $pass = '4288671'; // Заменить на пароль, такой же, как от SSH
@@ -159,22 +142,17 @@ catch(PDOException $e){
   print('Error : ' . $e->getMessage());
   exit();
 }
-// Делаем перенаправление.
-// Если запись не сохраняется, но ошибок не видно, то можно закомментировать эту строку чтобы увидеть ошибку.
-// Если ошибок при этом не видно, то необходимо настроить параметр display_errors для PHP.
-setcookie('name',NULL,1);
-setcookie('email',NULL,1);
-setcookie('data',NULL,1);
-setcookie('sex',NULL,1);
-setcookie('limbs',NULL,1);
-setcookie('abilities',NULL,1);
-setcookie('biography',NULL,1);
-setcookie('rules',NULL,1);
+
+$errors = array();
+
+setcookie('name','',1);
+setcookie('email','',1);
+setcookie('data','',1);
+setcookie('sex','М',1);
+setcookie('limbs',1,1);
+setcookie('abilities','',1);
+setcookie('biography','',1);
+setcookie('rules','',1);
 setcookie('saved',1);
 header('Location: index.php');
 ?>
-<br /><b>Warning</b>:  
-Undefined variable $values in <b>C:\Users\Dmitry\WebstormProjects\Study\task_4\form.php</b> 
-on line <b>33</b><br /><br /><b>Warning</b>:  
-Trying to access array offset on value of type null in 
-<b>C:\Users\Dmitry\WebstormProjects\Study\task_4\form.php</b> on line <b>33</b><br />

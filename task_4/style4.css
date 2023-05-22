@@ -43,9 +43,6 @@ textarea {
     height: 20px;
 }
 
-h3 {
-    height: 10px;
-}
 
 .check {
     height: 20px;
@@ -54,4 +51,7 @@ h3 {
 
 .error {
     border: 2px solid red;
+    border-radius: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
   }

@@ -11,18 +11,15 @@
     <div class="container">
       <div class="large-wrap">
       <?php
-if (!empty($messages)) {
-  print('<div id="messages">');
+if (!empty($errors)) {
+  print('<div id="messages"> <strong><h3>');
   // Выводим все сообщения.
   foreach ($errors as $message) {
     print($message);
+    print('<br></br>');
   }
-  print('</div>');
-}
-
-// Далее выводим форму отмечая элементы с ошибками классом error
-// и задавая начальные значения элементов ранее сохраненными.
-?>
+  print('</h3></strong></div>');
+}?>
         <form id="form" action="" method="POST" >
         <div>
           <div class="wrap">
@@ -30,7 +27,7 @@ if (!empty($messages)) {
               <strong><h3>Имя:</h3></strong>
               <input class="input-normal <?php if (!empty($errors['name'])) print('error'); ?>" 
               name="name" placeholder="Введите ваше имя"  
-              value="<?php print $values['name']; ?>">
+              value="<?php !empty($values['name']) ? print($values['name']) : print(''); ?>">
 
             </label> <br>
           </div>
@@ -40,7 +37,7 @@ if (!empty($messages)) {
               <strong><h3>Ваш email:</h3></strong>
               <input class="input-normal <?php if (!empty($errors['email'])) print('error'); ?>" name="email" type="email" placeholder="Введите вашу почту"
               
-              value="<?php print($values['email']); ?>"/>
+              value="<?php print((isset($values['email'])) ? $values['email'] : ''); ?>"/>
             </label><br>
           </div>
 
@@ -48,22 +45,23 @@ if (!empty($messages)) {
             <label >
               <strong><h3>Дата рождения: </h3></strong>
               <input class="input-normal <?php if (!empty($errors['data'])) print('error');  ?>" name="data" type="date"
-               
-              
-              value="<?php print($values['data']); ?>"
-              
-              />
+              value="<?php print($values['data']); ?>"/>
             </label> <br>
           </div>
 
           <div class="wrap">
             <label>
               <strong><h3>Ваш пол:</h3></strong>
-              <input class="input-radio" type="radio" name="sex" value="М">
+              <input class="input-radio" type="radio" name="sex" value="М" <?php 
+              if($values['sex']== 'М')
+                echo 'checked';
+              ?> >
               <span class="symbol">М</span>
             </label>
             <label >
-              <input class="input-radio"  type="radio" name="sex" value="Ж">
+              <input class="input-radio"  type="radio" name="sex" value="Ж" <?php 
+              if($values['sex']=='Ж')
+                echo 'checked'; ?>>
               <span class="symbol">Ж</span>
             </label><br>
           </div>
@@ -71,19 +69,23 @@ if (!empty($messages)) {
           <div class="wrap">
             <strong><h3>Кол-во конечностей:</h3></strong>
             <label>
-              <input class="input-radio"  type="radio" name="limbs" value=1>
+              <input class="input-radio"  type="radio" name="limbs" value=1 <?php 
+              if($values['limbs'] == 1)echo 'checked'; ?>>
               <span class="symbol">1</span>
             </label>
             <label>
-              <input class="input-radio"  type="radio" name="limbs" value=2>
+              <input class="input-radio"  type="radio" name="limbs" value=2 <?php 
+              if($values['limbs'] == 2)echo 'checked'; ?>>
               <span class="symbol">2</span>
             </label>
             <label>
-              <input class="input-radio"  type="radio" name="limbs" value=3>
+              <input class="input-radio"  type="radio" name="limbs" value=3 <?php 
+              if($values['limbs'] == 3)echo 'checked'; ?>>
               <span class="symbol">3</span>
             </label>
             <label>
-              <input class="input-radio"  type="radio" name="limbs" value=4>
+              <input class="input-radio"  type="radio" name="limbs" value=4 <?php 
+              if($values['limbs'] == 4)echo 'checked'; ?>>
               <span class="symbol">4</span>
             </label><br>
           </div>
@@ -92,7 +94,7 @@ if (!empty($messages)) {
             <label>
               <strong><h3>Сверхспособности:</h3></strong>
               <select  name="abilities" multiple="multiple">
-                <option value=1>
+                <option value=1 selected>
                   Бессмертие
                 </option>
                 <option value=2>
@@ -117,7 +119,10 @@ if (!empty($messages)) {
           <strong><h3>С контрактом ознакомлен (а)</h3></strong>
           <div class="wrap">
             <label >
-              <input class="check" type="checkbox" name="rules">
+              <input class="check <?php if (!empty($errors['rules'])) print('error'); ?>" type="checkbox" name="rules" <?php 
+              if(isset($_COOKIE['rules'])){
+                echo 'checked';
+              } ?>>
             </label>
           </div>
           <br>
