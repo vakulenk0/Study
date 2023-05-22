@@ -111,7 +111,7 @@ if (!empty($errors)) {
           <div class="wrap">
             <label >
               <strong><h3>Биография: </h3></strong>
-              <textarea class="<?php if (!empty($errors['rules'])) print('error'); ?>" name="biography"><?php print((isset($values['biography'])) ? $values['biography'] : ''); ?></textarea>
+              <textarea class="<?php if (!empty($errors['biography'])) print('error'); ?>" name="biography"><?php print((isset($values['biography'])) ? $values['biography'] : ''); ?></textarea>
             </label><br>
           </div>
 

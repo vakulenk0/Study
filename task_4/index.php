@@ -26,7 +26,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   if (isset($_COOKIE['error_rules'])){
     $errors['rules'] = $_COOKIE['error_rules'];
     setcookie('error_rules','');
-
+  }
+  if (isset($_COOKIE['error_biography'])){
+    $errors['biography'] = $_COOKIE['error_biography'];
+    setcookie('error_biography','');
   }
   if (isset($_COOKIE['error_abilities'])){
     $errors['abilities'] = $_COOKIE['error_abilities'];
