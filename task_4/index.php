@@ -81,7 +81,7 @@ $errors['abilities'] = '<div class="error">Отметьте ваши спосо�
 
 }
 
-if(empty($_POST['biography']) || !preg_match('/\w{10,}/', $_POST['biography'])){
+if(empty($_POST['biography']) || !preg_match('/\w{5,}/', $_POST['biography'])){
 $errors['biography'] = '<div class="error">Либо ваша биография пуста, либо в ней 
 использован запрещённый символ(разрешены только буквы и цифры).<br/><br/></div>';
 }
@@ -145,14 +145,14 @@ catch(PDOException $e){
 
 $errors = array();
 
-setcookie('name','',1);
-setcookie('email','',1);
-setcookie('data','',1);
+setcookie('name',null,1);
+setcookie('email',null,1);
+setcookie('data',null,1);
 setcookie('sex','М',1);
 setcookie('limbs',1,1);
-setcookie('abilities','',1);
-setcookie('biography','',1);
-setcookie('rules','',1);
+setcookie('abilities',null,1);
+setcookie('biography',null,1);
+setcookie('rules',null,1);
 setcookie('saved',1);
 header('Location: index.php');
 ?>
