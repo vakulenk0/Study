@@ -12,13 +12,13 @@
       <div class="large-wrap">
       <?php
 if (!empty($errors)) {
-  print('<div id="messages"> <strong><h3>');
+  print('<div id="messages"> <strong><h2>');
   // Выводим все сообщения.
   foreach ($errors as $message) {
     print($message);
     print('<br></br>');
   }
-  print('</h3></strong></div>');
+  print('</h2></strong></div>');
 }?>
         <form id="form" action="" method="POST" >
         <div>
