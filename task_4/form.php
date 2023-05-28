@@ -14,8 +14,8 @@
 if (!empty($errors)) {
   print('<div id="messages"> <strong><h2>');
   // Выводим все сообщения.
-  foreach ($errors as $message) {
-    print($message);
+  foreach ($errors as $msg) {
+    print($msg);
     print('<br></br>');
   }
   print('</h2></strong></div>');

@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   $values['sex']  = isset($_COOKIE['sex'])?$_COOKIE['sex']: "М" ;
   $values['limbs']  = isset($_COOKIE['limbs'])?$_COOKIE['limbs']:4 ;
   $values['biography']  = empty($_COOKIE['biography']) ? "" : $_COOKIE['biography'];
-  $values['abilities']  = empty($_COOKIE['abilities']) ? "" : $_COOKIE['abilities'];
+  $values['abilities[]']  = empty($_COOKIE['abilities[]']) ? "" : $_COOKIE['abilities[]'];
   $values['rules']  = empty($_COOKIE['rules']) ? 0 : $_COOKIE['rules'];
 
   include('form.php');
@@ -79,7 +79,7 @@ if(empty($_POST['sex'])){
 $errors['sex'] = '<div class="error">Отметьте ваш пол.<br/><br/></div>';
 }
 
-if(empty($_POST['abilities'])){
+if(empty($_POST['abilities[]'])){
 $errors['abilities'] = '<div class="error">Отметьте ваши способности.<br/><br/></div>';
 
 }
@@ -136,10 +136,12 @@ try {
   $stmt->execute();
   $id = $stmt->fetchColumn();
 
-  $stmt = $db->prepare("INSERT INTO application_power (id, app_id, sup_id) VALUES (null, :app_id, :sup_id)");
-  $stmt->bindParam(':app_id', $id);
-  $stmt->bindParam(':sup_id', ($_POST['abilities'])[0]);
-  $stmt->execute();
+  foreach($_POST['abilities[]'] as $power){
+    $stmt = $db->prepare("INSERT INTO application_power (id, app_id, sup_id) VALUES (null, :app_id, :sup_id)");
+    $stmt->bindParam(':app_id', $id);
+    $stmt->bindParam(':sup_id', $power);
+    $stmt->execute();
+  }
 }
 catch(PDOException $e){
   print('Error : ' . $e->getMessage());
