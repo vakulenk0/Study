@@ -79,7 +79,7 @@ if(empty($_POST['sex'])){
 $errors['sex'] = '<div class="error">Отметьте ваш пол.<br/><br/></div>';
 }
 
-if(empty($_POST['abilities[]'])){
+if(empty($_POST['abilities'])){
 $errors['abilities'] = '<div class="error">Отметьте ваши способности.<br/><br/></div>';
 
 }
@@ -136,7 +136,7 @@ try {
   $stmt->execute();
   $id = $stmt->fetchColumn();
 
-  foreach($_POST['abilities[]'] as $power){
+  foreach($_POST['abilities'] as $power){
     $stmt = $db->prepare("INSERT INTO application_power (id, app_id, sup_id) VALUES (null, :app_id, :sup_id)");
     $stmt->bindParam(':app_id', $id);
     $stmt->bindParam(':sup_id', $power);
