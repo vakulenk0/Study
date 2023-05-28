@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     setcookie('error_biography','');
   }
   if (isset($_COOKIE['error_abilities'])){
-    $errors['abilities'] = $_COOKIE['error_abilities'];
+    $errors['abilities[]'] = $_COOKIE['error_abilities'];
     setcookie('error_abilities','');
   }
   $values = array();
@@ -80,7 +80,7 @@ $errors['sex'] = '<div class="error">Отметьте ваш пол.<br/><br/></
 }
 
 if(empty($_POST['abilities[]'])){
-$errors['abilities'] = '<div class="error">Отметьте ваши способности.<br/><br/></div>';
+$errors['abilities[]'] = '<div class="error">Отметьте ваши способности.<br/><br/></div>';
 
 }
 
@@ -155,7 +155,7 @@ setcookie('email',null,1);
 setcookie('data',null,1);
 setcookie('sex','М',1);
 setcookie('limbs',1,1);
-setcookie('abilities',null,1);
+setcookie('abilities[]',null,1);
 setcookie('biography',null,1);
 setcookie('rules',null,1);
 setcookie('saved',1);
