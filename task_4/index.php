@@ -130,8 +130,8 @@ try {
   $stmt->bindParam(':sex', $arr['sex']);
   $stmt->bindParam(':limbs', $arr['limbs']);
   $stmt->bindParam(':biography', $arr['biography']);
-  $stmt->bindParam(':login', 'login');
-  $stmt->bindParam(':password', 'password');
+  $stmt->bindParam(':login', " ");
+  $stmt->bindParam(':password', " ");
 
   $stmt->execute();
 
