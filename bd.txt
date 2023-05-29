@@ -1,9 +1,11 @@
  create table application (
     id int(10) unsigned not null auto_increment,
+    login varchar(30) not null,
+    password varchar(30) not null,
     name varchar(20) not null,
     email varchar(30) not null,
     data varchar(30) not null,
-    sex int(1) not null,
+    sex varchar(1) not null,
     limbs int(1) not null,
     biography varchar(100) not null,
     primary key(id));
@@ -12,7 +14,7 @@
 create table application_power (
     id int(10) unsigned not null auto_increment,
     app_id int(10) unsigned not null,
-    sup_id int(2) unsigned not null,
+    sup_id int(2) unsigned,
     primary key(id));
 
 
@@ -24,3 +26,7 @@ create table power (
 
 alter table application_power add foreign key (id) references application (id);
 alter table application_power add foreign key (sup_id) references power (sup_id);
+
+insert into power values (1, 'Бессмертие');
+insert into power values (2, 'Прохождения сквозь стены');
+insert into power values (3, 'Левитация');
