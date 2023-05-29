@@ -258,7 +258,7 @@ $arr = Array(
 );
 if($auth && !empty($_SESSION['id'])){
   try{
-    $stmt = $db->prepare("UPDATE application SET (name=:name,email=:email,data=:data,sex=:sex,limbs=:limbs,biography=:biography) WHERE id=:id ");
+    $stmt = $db->prepare("UPDATE application SET (:name,:email,:data,sex,:limbs,:biography) WHERE id=:id ");
     $stmt->bindParam(':name', $_POST['name']);
     $stmt->bindParam(':email', $_POST['email']);
     $stmt->bindParam(':data', $_POST['data']);
