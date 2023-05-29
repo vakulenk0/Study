@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
       $atributes = $stmt->fetchAll(); //Достаём из бд строку с данными нашего пользователя
 
 
-      $stmt = $db->prepare("select s.sup_id from superpower s join application_superpower a on s.sup_id=a.sup_id where application_id=:id");
+      $stmt = $db->prepare("select s.sup_id from power s join application_power a on s.sup_id=a.sup_id where id=:id");
       $stmt->execute(['id'=>$_SESSION['id']]);
       $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
       $gg = $stmt->fetchAll(); // Достаём из бд строку с нашими способностями для данного пользователя
@@ -256,14 +256,14 @@ $arr = Array(
   'limbs' => $_POST["limbs"],
   'biography' => $_POST["biography"]
 );
-if(session_start() == true && !empty($_SESSION['uid'])){
+if(session_start() == true && !empty($_SESSION['id'])){
   try{
     $stmt = $db->prepare("UPDATE application SET name=:name,email=:email,data=:data,sex=:sex,limbs=:limbs,biography=:biography WHERE id=:id ");
     $stmt -> execute(['id'=>$_SESSION['id'], 'name'=>$_POST['name'], 'email'=>$_POST['email'],'data'=>$_POST['data'],'sex'=>$_POST['sex'],'limbs'=>$_POST['limbs'],'biography'=>$_POST['biography']]);
-    $stmt = $db->prepare("DELETE from application_superpower WHERE application_id=:id");
+    $stmt = $db->prepare("DELETE from application_power WHERE id=:id");
     $stmt -> execute(['id'=>$_SESSION['id']]);
     foreach ($_POST['abilities'] as $sup_id) {
-      $stmt = $db->prepare("INSERT INTO application_superpower (application_id, sup_id) VALUES (:ap_id,:sup_id)");
+      $stmt = $db->prepare("INSERT INTO application_power (ap_id, sup_id) VALUES (:ap_id,:sup_id)");
       $stmt -> execute(['ap_id'=>$_SESSION['id'], 'sup_id'=>$sup_id]);
     }
     $ap_id = $_SESSION['id'];
@@ -278,13 +278,13 @@ if(session_start() == true && !empty($_SESSION['uid'])){
 
   $ap_id = 0;
   try{
-    $stmt = $db->prepare("INSERT INTO application (login, password, name,email,yob,sex,num_of_limbs,biography) VALUES (:login,:password,:name,:email,:yob,:sex,:num_of_limbs,:biography)");
+    $stmt = $db->prepare("INSERT INTO application (login, password, name,email,data,sex,limbs,biography) VALUES (:login,:password,:name,:email,:data,:sex,:limbs,:biography)");
     $stmt -> execute(['login'=>$login, 'password'=>password_hash($password,PASSWORD_DEFAULT), 'name'=>$_POST['name'], 'email'=>$_POST['email'],'data'=>$_POST['data'],'sex'=>$_POST['sex'],'limbs'=>$_POST['limbs'],'biography'=>$_POST['biography']]);
     $stmt = $db->prepare("SELECT MAX(id) from application");
     $stmt->execute();
     $ap_id = $stmt->fetchColumn();
-    foreach ($_POST['superpowers'] as $sup_id) {
-      $stmt = $db->prepare("INSERT INTO application_superpower (application_id, sup_id) VALUES (:ap_id,:sup_id)");
+    foreach ($_POST['power'] as $sup_id) {
+      $stmt = $db->prepare("INSERT INTO application_power (ap_id, sup_id) VALUES (:ap_id,:sup_id)");
       $stmt -> execute(['ap_id'=>$ap_id, 'sup_id'=>$sup_id]);
     }
   } catch(PDOException $e){
