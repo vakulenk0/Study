@@ -258,8 +258,8 @@ $arr = Array(
 );
 if($auth && !empty($_SESSION['id'])){
   try{
-    // $stmt = $db->prepare("UPDATE application SET name=:name,email=:email,data=:data,sex=:sex,limbs=:limbs,biography=:biography WHERE id=:id ");
-    // $stmt -> execute(['id'=>$_SESSION['id'], 'name'=>$_POST['name'], 'email'=>$_POST['email'],'data'=>$_POST['data'],'sex'=>$_POST['sex'],'limbs'=>$_POST['limbs'],'biography'=>$_POST['biography']]);
+    $stmt = $db->prepare("UPDATE application SET name=:name,email=:email,data=:data,sex=:sex,limbs=:limbs,biography=:biography WHERE id=:id ");
+    $stmt -> execute(['id'=>$_SESSION['id'], 'name'=>$_POST['name'], 'email'=>$_POST['email'],'data'=>$_POST['data'],'sex'=>$_POST['sex'],'limbs'=>$_POST['limbs'],'biography'=>$_POST['biography']]);
     $stmt = $db->prepare("DELETE from application_power WHERE id=:id");
     $stmt -> execute(['id'=>$_SESSION['id']]);
     foreach ($_POST['abilities'] as $sup_id) {
@@ -283,7 +283,7 @@ if($auth && !empty($_SESSION['id'])){
     $stmt = $db->prepare("SELECT MAX(id) from application");
     $stmt->execute();
     $ap_id = $stmt->fetchColumn();
-    foreach ($_POST['power'] as $sup_id) {
+    foreach ($_POST['abilities'] as $sup_id) {
       $stmt = $db->prepare("INSERT INTO application_power (ap_id, sup_id) VALUES (:ap_id,:sup_id)");
       $stmt -> execute(['ap_id'=>$ap_id, 'sup_id'=>$sup_id]);
     }
