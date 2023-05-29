@@ -258,7 +258,7 @@ $arr = Array(
 );
 if(session_start() == true && !empty($_SESSION['uid'])){
   try{
-    $stmt = $db->prepare("UPDATE application SET name=:name,email=:email,data=:data,sex=:sex,limbs=:limbs,biography=:biography WHERE application_id=:id ");
+    $stmt = $db->prepare("UPDATE application SET name=:name,email=:email,data=:data,sex=:sex,limbs=:limbs,biography=:biography WHERE id=:id ");
     $stmt -> execute(['id'=>$_SESSION['id'], 'name'=>$_POST['name'], 'email'=>$_POST['email'],'data'=>$_POST['data'],'sex'=>$_POST['sex'],'limbs'=>$_POST['limbs'],'biography'=>$_POST['biography']]);
     $stmt = $db->prepare("DELETE from application_superpower WHERE application_id=:id");
     $stmt -> execute(['id'=>$_SESSION['id']]);
