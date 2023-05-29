@@ -256,7 +256,7 @@ $arr = Array(
   'limbs' => $_POST["limbs"],
   'biography' => $_POST["biography"]
 );
-if(session_start() && !empty($_SESSION['uid'])){
+if(session_start() == true && !empty($_SESSION['uid'])){
   try{
     $stmt = $db->prepare("UPDATE application SET name=:name,email=:email,data=:data,sex=:sex,limbs=:limbs,biography=:biography WHERE application_id=:id ");
     $stmt -> execute(['id'=>$_SESSION['id'], 'name'=>$_POST['name'], 'email'=>$_POST['email'],'data'=>$_POST['data'],'sex'=>$_POST['sex'],'limbs'=>$_POST['limbs'],'biography'=>$_POST['biography']]);
@@ -279,7 +279,7 @@ if(session_start() && !empty($_SESSION['uid'])){
   $ap_id = 0;
   try{
     $stmt = $db->prepare("INSERT INTO application (login, password, name,email,yob,sex,num_of_limbs,biography) VALUES (:login,:password,:name,:email,:yob,:sex,:num_of_limbs,:biography)");
-    $stmt -> execute(['login'=>$login, 'password'=>password_hash($password,PASSWORD_DEFAULT), 'name'=>$_POST['name'], 'email'=>$_POST['email'],'yob'=>$_POST['yob'],'sex'=>$_POST['sex'],'num_of_limbs'=>$_POST['num_of_limbs'],'biography'=>$_POST['biography']]);
+    $stmt -> execute(['login'=>$login, 'password'=>password_hash($password,PASSWORD_DEFAULT), 'name'=>$_POST['name'], 'email'=>$_POST['email'],'data'=>$_POST['data'],'sex'=>$_POST['sex'],'limbs'=>$_POST['limbs'],'biography'=>$_POST['biography']]);
     $stmt = $db->prepare("SELECT MAX(id) from application");
     $stmt->execute();
     $ap_id = $stmt->fetchColumn();
