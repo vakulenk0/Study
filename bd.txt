@@ -1,33 +1,66 @@
- create table application (
-    id int(10) unsigned not null auto_increment,
-    name varchar(20) not null,
-    email varchar(30) not null,
-    data varchar(30) not null,
-    sex varchar(1) not null,
-    limbs int(1) not null,
-    biography varchar(100) not null,
-    primary key(id));
-
-    login varchar(100) not null,
-    password varchar(100) not null,
-
-
-create table application_power (
-    id int(10) unsigned not null auto_increment,
-    app_id int(10) unsigned not null,
-    sup_id int(2) unsigned,
-    primary key(id));
-
-
-create table power (
-    sup_id int(2) unsigned not null,
-    name varchar(30) not null,
-    primary key(sup_id)); 
-
-
-alter table application_power add foreign key (id) references application (id);
-alter table application_power add foreign key (sup_id) references power (sup_id);
-
-insert into power values (1, 'Бессмертие');
-insert into power values (2, 'Прохождения сквозь стены');
-insert into power values (3, 'Левитация');
+CREATE TABLE `abilities` (
+  `abilities_id` int(128) UNSIGNED NOT NULL,
+  `application_id` int(128) NOT NULL DEFAULT 0,
+  `superpower_id` int(4) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `abilities` (`abilities_id`, `application_id`, `superpower_id`) VALUES
+(1, 1, 1),
+(2, 2, 1),
+(5, 5, 1),
+(6, 6, 1),
+(7, 6, 2),
+(8, 6, 3),
+(9, 7, 2),
+(10, 7, 3);
+CREATE TABLE `admins` (
+  `id` int(11) NOT NULL,
+  `login` varchar(50) NOT NULL,
+  `password` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `admins` (`id`, `login`, `password`) VALUES
+(1, 'admin', 'password'),
+(2, 'user574', '70');
+CREATE TABLE `application` (
+  `application_id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(128) NOT NULL DEFAULT '',
+  `email` varchar(128) NOT NULL DEFAULT '',
+  `year` int(10) NOT NULL DEFAULT 0,
+  `gender` varchar(10) NOT NULL DEFAULT '',
+  `hand` varchar(10) NOT NULL DEFAULT '',
+  `biography` varchar(128) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `application` (`application_id`, `name`, `email`, `year`, `gender`, `hand`, `biography`) VALUES
+(1, 'Клим', 'mr.khurdakov@mail.ru', 2004, 'male', 'right', 'алло'),
+(2, 'Клим', 'mr.khurdakov@mail.ru', 2004, 'male', 'right', 'алло'),
+(5, 'Клим', 'mr.khurdakov@mail.ru', 2004, 'male', 'right', 'привет'),
+(6, 'Пикавсир', 'mr.akov@mail.ru', 2004, 'male', 'left', 'тирпетав'),
+(7, 'ddff', 's@a.ru', 2004, 'male', 'right', 'ра');
+CREATE TABLE `users` (
+  `user_id` int(128) UNSIGNED NOT NULL,
+  `application_id` int(128) NOT NULL DEFAULT 0,
+  `login` varchar(16) NOT NULL DEFAULT '',
+  `password` varchar(32) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `users` (`user_id`, `application_id`, `login`, `password`) VALUES
+(1, 1, 'user774', 'e2ef524fbf3d9fe611d5a8e90fefdc9c'),
+(2, 2, 'user882', '92cc227532d17e56e07902b254dfad10'),
+(5, 5, 'user607', '37693cfc748049e45d87b8c7d8b9aacd'),
+(6, 6, 'user827', 'd2ddea18f00665ce8623e36bd4e3c7c5'),
+(7, 7, 'user574', '7cbbc409ec990f19c78c75bd1e06f215');
+ALTER TABLE `abilities`
+  ADD PRIMARY KEY (`abilities_id`);
+ALTER TABLE `admins`
+  ADD PRIMARY KEY (`id`);
+ALTER TABLE `application`
+  ADD PRIMARY KEY (`application_id`);
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`user_id`);
+ALTER TABLE `abilities`
+  MODIFY `abilities_id` int(128) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+ALTER TABLE `admins`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `application`
+  MODIFY `application_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+ALTER TABLE `users`
+  MODIFY `user_id` int(128) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+COMMIT;
