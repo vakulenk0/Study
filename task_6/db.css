@@ -1,6 +1,6 @@
 body {
     font-size: large;
-    background: #75ccff;
+    background: orange;
     font-family: Montserrat;
 }
 
@@ -15,7 +15,7 @@ td, th {
 }
 
 th {
-    background: #83ffa8;
+    background: purple;
 }
 
 textarea {
