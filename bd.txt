@@ -1,7 +1,7 @@
  create table application (
     id int(10) unsigned not null auto_increment,
-    login varchar(30) not null,
-    password varchar(30) not null,
+    login varchar(100) not null,
+    password varchar(100) not null,
     name varchar(20) not null,
     email varchar(30) not null,
     data varchar(30) not null,
