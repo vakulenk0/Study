@@ -304,5 +304,5 @@ $_SESSION['id'] = $ap_id;
 setcookie('saved',1);
 setcookie('login',$login);
 setcookie('password',$password);
-header('Location: index.php');
+header('Location: .');
 ?>

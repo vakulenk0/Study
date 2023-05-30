@@ -121,8 +121,8 @@ $arr = Array(
 );
 
 try {
-  $stmt = $db->prepare("INSERT INTO application (login, password, name, email, data, sex, limbs, biography) 
-  VALUES (:login, :password, :name, :email, :data, :sex, :limbs, :biography)");
+  $stmt = $db->prepare("INSERT INTO application (name, email, data, sex, limbs, biography) 
+  VALUES (:name, :email, :data, :sex, :limbs, :biography)");
 
   $stmt->bindParam(':name', $arr['name']);
   $stmt->bindParam(':email', $arr['email']);
@@ -130,8 +130,6 @@ try {
   $stmt->bindParam(':sex', $arr['sex']);
   $stmt->bindParam(':limbs', $arr['limbs']);
   $stmt->bindParam(':biography', $arr['biography']);
-  $stmt->bindParam(':login', " ");
-  $stmt->bindParam(':password', " ");
 
   $stmt->execute();
 
