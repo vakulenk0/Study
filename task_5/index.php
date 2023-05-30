@@ -103,20 +103,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
       $values['biography']  = empty($_COOKIE['biography']) ? "" : $_COOKIE['biography'];
       $values['abilities']  = empty($_COOKIE['abilities']) ? "" : $_COOKIE['abilities'];
       $values['rules']  = empty($_COOKIE['rules']) ? 0 : $_COOKIE['rules'];
-  
-      $_SESSION['token'] = bin2hex(random_bytes(35));
 
       include('form.php');
       exit();
     }
 
-    // $token = filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING);
-
-    // if (!$token || $token !== $_SESSION['token']) {
-    //   echo '<p class="error">Ошибка: неверная отправка формы</p>';
-    //   header($_SERVER['SERVER_PROTOCOL'] . ' 405 Method Not Allowed');
-    //   exit;
-    // }
 
     $errors = array();
 
@@ -313,5 +304,5 @@ $_SESSION['id'] = $ap_id;
 setcookie('saved',1);
 setcookie('login',$login);
 setcookie('password',$password);
-header('Location: .');
+header('Location: index.php');
 ?>

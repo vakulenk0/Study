@@ -47,7 +47,6 @@ if (!empty($errors)) {
   print('</h2></strong></div>');
 }?>
         <form id="form" action="" method="POST" >
-        <input name="token" type="hidden" value="<?php echo $_SESSION['token'];?>">
         <div>
           <div class="wrap">
             <label>
