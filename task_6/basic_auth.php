@@ -4,9 +4,9 @@ if (empty($_SERVER['PHP_AUTH_USER']) || empty($_SERVER['PHP_AUTH_PW'])) {
     requireLogin();
 }
 
-$user = 'u52964';
-$pass = '8689832';
-$db = new PDO('mysql:host=localhost;dbname=u52964', $user, $pass, array(PDO::ATTR_PERSISTENT => true));
+$user = 'u52961';
+$pass = '4288671';
+$db = new PDO('mysql:host=localhost;dbname=u52961', $user, $pass, array(PDO::ATTR_PERSISTENT => true));
 
 $stmt = $db->prepare("SELECT login, password FROM admins WHERE login = ?");
 $stmt->execute([$_SERVER['PHP_AUTH_USER']]);

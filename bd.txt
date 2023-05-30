@@ -30,11 +30,11 @@ CREATE TABLE `application` (
   `biography` varchar(128) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 INSERT INTO `application` (`application_id`, `name`, `email`, `year`, `gender`, `hand`, `biography`) VALUES
-(1, 'Клим', 'mr.khurdakov@mail.ru', 2004, 'male', 'right', 'алло'),
-(2, 'Клим', 'mr.khurdakov@mail.ru', 2004, 'male', 'right', 'алло'),
-(5, 'Клим', 'mr.khurdakov@mail.ru', 2004, 'male', 'right', 'привет'),
-(6, 'Пикавсир', 'mr.akov@mail.ru', 2004, 'male', 'left', 'тирпетав'),
-(7, 'ddff', 's@a.ru', 2004, 'male', 'right', 'ра');
+(1, 'Дима', 'vakulenko@mail.ru', 2004, 'male', 'right', 'ЗУБЕНКО'),
+(2, 'Дима', 'v@mail.ru', 2004, 'male', 'right', 'МИХАИЛ'),
+(5, 'Дима', 'vak@mail.ru', 2004, 'male', 'right', 'ПЕТРОВИЧ'),
+(6, 'Виноксир', 'mr.akov@mail.ru', 2004, 'male', 'left', 'птерапидокль'),
+(7, 'ttSS', 's@a.ru', 2004, 'male', 'right', '');
 CREATE TABLE `users` (
   `user_id` int(128) UNSIGNED NOT NULL,
   `application_id` int(128) NOT NULL DEFAULT 0,
