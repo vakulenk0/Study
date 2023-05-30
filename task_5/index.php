@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
       $gg = $stmt->fetchAll(); // Достаём из бд строку с нашими способностями для данного пользователя
       
       $sups = array();
-      foreach($tgg as $value) { 
+      foreach($gg as $value) { 
         array_push($sups, $value['sup_id']);
       }
 
