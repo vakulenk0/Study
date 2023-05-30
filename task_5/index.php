@@ -265,8 +265,8 @@ if($auth && !empty($_SESSION['id'])){
     $stmt = $db->prepare("DELETE from application_power WHERE id=:id");
     $stmt -> execute(['id'=>$_SESSION['id']]);
     foreach ($_POST['abilities'] as $sup_id) {
-      $stmt = $db->prepare("INSERT INTO application_power (ap_id, sup_id) VALUES (:ap_id,:sup_id)");
-      $stmt -> execute(['ap_id'=>$_SESSION['id'], 'sup_id'=>$sup_id]);
+      $stmt = $db->prepare("INSERT INTO application_power (app_id, sup_id) VALUES (:app_id,:sup_id)");
+      $stmt -> execute(['app_id'=>$_SESSION['id'], 'sup_id'=>$sup_id]);
     }
     $ap_id = $_SESSION['id'];
     setcookie('changed',TRUE);
@@ -286,8 +286,8 @@ if($auth && !empty($_SESSION['id'])){
     $stmt->execute();
     $ap_id = $stmt->fetchColumn();
     foreach ($_POST['abilities'] as $sup_id) {
-      $stmt = $db->prepare("INSERT INTO application_power (ap_id, sup_id) VALUES (:ap_id,:sup_id)");
-      $stmt -> execute(['ap_id'=>$ap_id, 'sup_id'=>$sup_id]);
+      $stmt = $db->prepare("INSERT INTO application_power (app_id, sup_id) VALUES (:app_id,:sup_id)");
+      $stmt -> execute(['app_id'=>$ap_id, 'sup_id'=>$sup_id]);
     }
   } catch(PDOException $e){
       print('Error : ' . $e->getMessage());
