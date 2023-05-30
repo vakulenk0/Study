@@ -10,7 +10,7 @@
 </head>
 <body>
 <?php
-    echo '<div class="msgbox">'; 
+    echo '<div class="msgbox">';
         if (!empty($messages)) {
             foreach ($messages as $message) {
                 print($message);
@@ -33,7 +33,7 @@
     <form action="" method="POST">
         <table>
             <caption>Данные формы</caption>
-            <tr> 
+            <tr>
                 <th>id</th>
                 <th>Имя</th>
                 <th>email</th>
@@ -64,7 +64,7 @@
                                     }
                     echo        '</select>
                             </td>
-                            <td> 
+                            <td>
                                 <div class="column-item">
                                     <input type="radio" id="radioMale'.$value['application_id'].'" name="gender'.$value['application_id'].'" value="male" '; if ($value['gender'] == 'male') echo 'checked'; echo '>
                                     <label for="radioMale'.$value['application_id'].'">Мужчина</label>
@@ -112,7 +112,7 @@
                                     <input name="clear'.$value['application_id'].'" type="submit" value="clear'.$value['application_id'].'"/>
                                 </div>
                             </td>
-                        </tr>'; 
+                        </tr>';
                 }
             ?>
         </table>
