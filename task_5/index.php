@@ -110,13 +110,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
       exit();
     }
 
-    $token = filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING);
+    // $token = filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING);
 
-    if (!$token || $token !== $_SESSION['token']) {
-      echo '<p class="error">Ошибка: неверная отправка формы</p>';
-      header($_SERVER['SERVER_PROTOCOL'] . ' 405 Method Not Allowed');
-      exit;
-    }
+    // if (!$token || $token !== $_SESSION['token']) {
+    //   echo '<p class="error">Ошибка: неверная отправка формы</p>';
+    //   header($_SERVER['SERVER_PROTOCOL'] . ' 405 Method Not Allowed');
+    //   exit;
+    // }
 
     $errors = array();
 
